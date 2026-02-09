@@ -68,4 +68,14 @@ describe("markdownToTelegramHtml", () => {
     const res = markdownToTelegramHtml("[**bold**](https://example.com)");
     expect(res).toBe('<a href="https://example.com"><b>bold</b></a>');
   });
+
+  it("renders spoiler markers as tg-spoiler tags", () => {
+    const res = markdownToTelegramHtml("||secret||");
+    expect(res).toBe("<tg-spoiler>secret</tg-spoiler>");
+  });
+
+  it("renders spoiler with nested formatting", () => {
+    const res = markdownToTelegramHtml("||**secret** text||");
+    expect(res).toBe("<tg-spoiler><b>secret</b> text</tg-spoiler>");
+  });
 });
